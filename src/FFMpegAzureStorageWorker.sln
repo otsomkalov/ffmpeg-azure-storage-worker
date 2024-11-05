@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integrations", "Integration
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Integrations.Azure.Storage.Blobs", "Integrations.Azure.Storage.Blobs\Integrations.Azure.Storage.Blobs.fsproj", "{C8266393-F550-4016-8017-432AECD66820}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Integrations.Azure.Storage.Queue", "Integrations.Azure.Storage.Queue\Integrations.Azure.Storage.Queue.fsproj", "{AF29751A-F221-4F74-9A1A-DD205E721907}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{C8266393-F550-4016-8017-432AECD66820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8266393-F550-4016-8017-432AECD66820}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8266393-F550-4016-8017-432AECD66820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF29751A-F221-4F74-9A1A-DD205E721907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF29751A-F221-4F74-9A1A-DD205E721907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF29751A-F221-4F74-9A1A-DD205E721907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF29751A-F221-4F74-9A1A-DD205E721907}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3F324E72-4FD9-41B1-AFDA-B7F5851DC641} = {574BBC0F-EE9D-4A3A-B1AE-87D474FC7E5B}
@@ -60,5 +66,6 @@ Global
 		{53D6951B-F451-4F0A-8146-CA06AAE3DDA9} = {940ECC4D-7C81-44A3-8E6E-2E1BF598C35D}
 		{5C5669DC-A6ED-420F-89BE-AB306C46D8A4} = {53D6951B-F451-4F0A-8146-CA06AAE3DDA9}
 		{C8266393-F550-4016-8017-432AECD66820} = {53D6951B-F451-4F0A-8146-CA06AAE3DDA9}
+		{AF29751A-F221-4F74-9A1A-DD205E721907} = {53D6951B-F451-4F0A-8146-CA06AAE3DDA9}
 	EndGlobalSection
 EndGlobal

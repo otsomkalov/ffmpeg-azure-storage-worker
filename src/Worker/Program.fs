@@ -4,6 +4,7 @@ open Azure.Storage.Queues
 open Infrastructure
 open Infrastructure.Settings
 open Integrations.Azure.Storage.Blobs
+open Integrations.Azure.Storage.Queue
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
@@ -36,6 +37,7 @@ module Program =
     services
     |> Startup.addIntegrationsCore ctx.Configuration
     |> Startup.addAzureStorageIntegration
+    |> Startup.addAzureStorageQueueIntegration
 
     services.AddHostedService<Worker.Worker>() |> ignore
 

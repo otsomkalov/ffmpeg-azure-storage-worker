@@ -15,6 +15,7 @@ open Infrastructure.Helpers
 open Worker.Settings
 open otsom.fs.Extensions
 open Domain.Workflows
+open Integrations.Azure.Storage.Queue
 
 type Worker
   (

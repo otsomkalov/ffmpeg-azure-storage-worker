@@ -1,15 +1,16 @@
-﻿namespace Infrastructure
+﻿namespace Integrations.Azure.Storage.Queue
 
-open System
 open System.Text.Json.Serialization
 open System.Threading.Tasks
 open Azure.Storage.Queues
 open Azure.Storage.Queues.Models
+open Domain.Workflows
 open FSharp
 open Infrastructure.Helpers
+open Infrastructure.Settings
 open Microsoft.Extensions.Logging
 open otsom.fs.Extensions
-open Domain.Workflows
+open System
 
 [<RequireQualifiedAccess>]
 module Queue =
@@ -21,7 +22,7 @@ module Queue =
 
   type GetMessage = unit -> Task<QueueMessage option>
 
-  let getMessage (client: QueueServiceClient) (settings: Settings.StorageSettings) : GetMessage =
+  let getMessage (client: QueueServiceClient) (settings: StorageSettings) : GetMessage =
     let inputQueueClient = client.GetQueueClient settings.Input.Queue
 
     inputQueueClient.ReceiveMessageAsync
@@ -31,7 +32,7 @@ module Queue =
 
   type DeleteMessageFactory = string * string -> Queue.DeleteMessage
 
-  let deleteMessageFactory (client: QueueServiceClient) (settings: Settings.StorageSettings) (loggerFactory: ILoggerFactory) : DeleteMessageFactory =
+  let deleteMessageFactory (client: QueueServiceClient) (settings: StorageSettings) (loggerFactory: ILoggerFactory) : DeleteMessageFactory =
     let logger = loggerFactory.CreateLogger(nameof Queue.DeleteMessage)
     let inputQueueClient = client.GetQueueClient settings.Input.Queue
 
@@ -52,7 +53,7 @@ module Queue =
   type ConversionResultMessage =
     { Id: string; Result: ConversionResult }
 
-  let private sendOutputMessage (client: QueueServiceClient) (settings: Settings.StorageSettings) =
+  let private sendOutputMessage (client: QueueServiceClient) (settings: StorageSettings) =
     let outputQueueClient = client.GetQueueClient(settings.Output.Queue)
 
     JSON.serialize >> outputQueueClient.SendMessageAsync >> Task.map ignore
@@ -62,7 +63,11 @@ module Queue =
 
   type SendSuccessMessageFactory = string -> string -> Queue.SendSuccessMessage
 
-  let sendSuccessMessageFactory (client: QueueServiceClient) (settings: Settings.StorageSettings) (loggerFactory: ILoggerFactory) : SendSuccessMessageFactory =
+  let sendSuccessMessageFactory
+    (client: QueueServiceClient)
+    (settings: StorageSettings)
+    (loggerFactory: ILoggerFactory)
+    : SendSuccessMessageFactory =
     let logger = loggerFactory.CreateLogger(nameof Queue.SendSuccessMessage)
 
     fun operationId conversionId ->
@@ -79,7 +84,11 @@ module Queue =
 
   type SendFailureMessageFactory = string -> string -> Queue.SendFailureMessage
 
-  let sendFailureMessageFactory (client: QueueServiceClient) (settings: Settings.StorageSettings) (loggerFactory: ILoggerFactory) : SendFailureMessageFactory =
+  let sendFailureMessageFactory
+    (client: QueueServiceClient)
+    (settings: StorageSettings)
+    (loggerFactory: ILoggerFactory)
+    : SendFailureMessageFactory =
     let logger = loggerFactory.CreateLogger(nameof Queue.SendFailureMessage)
 
     fun operationId conversionId ->
