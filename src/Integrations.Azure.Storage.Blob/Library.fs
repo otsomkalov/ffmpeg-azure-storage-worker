@@ -1,4 +1,4 @@
-namespace Integrations.Azure.Storage.Blobs
+namespace Integrations.Azure.Storage.Blob
 
 open System.IO
 open Azure.Storage.Blobs

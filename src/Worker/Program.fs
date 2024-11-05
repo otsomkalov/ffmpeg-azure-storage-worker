@@ -3,7 +3,7 @@ namespace Worker
 open Azure.Storage.Queues
 open Infrastructure
 open Infrastructure.Settings
-open Integrations.Azure.Storage.Blobs
+open Integrations.Azure.Storage.Blob
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
@@ -35,7 +35,7 @@ module Program =
 
     services
     |> Startup.addIntegrationsCore ctx.Configuration
-    |> Startup.addAzureStorageIntegration
+    |> Startup.addAzureStorageBlobIntegration
 
     services.AddHostedService<Worker.Worker>() |> ignore
 

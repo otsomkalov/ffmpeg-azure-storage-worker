@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{85D6AAE4-6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integrations", "Integrations", "{53D6951B-F451-4F0A-8146-CA06AAE3DDA9}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Integrations.Azure.Storage.Blobs", "Integrations.Azure.Storage.Blobs\Integrations.Azure.Storage.Blobs.fsproj", "{C8266393-F550-4016-8017-432AECD66820}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Integrations.Azure.Storage.Blob", "Integrations.Azure.Storage.Blob\Integrations.Azure.Storage.Blob.fsproj", "{C8266393-F550-4016-8017-432AECD66820}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

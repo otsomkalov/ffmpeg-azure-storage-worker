@@ -19,7 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.fsproj"/>
     <ProjectReference Include="..\Infrastructure\Infrastructure.fsproj"/>
-    <ProjectReference Include="..\Integrations.Azure.Storage.Blobs\Integrations.Azure.Storage.Blobs.fsproj" />
+    <ProjectReference Include="..\Integrations.Azure.Storage.Blob\Integrations.Azure.Storage.Blob.fsproj" />
   </ItemGroup>
 
   <ItemGroup>

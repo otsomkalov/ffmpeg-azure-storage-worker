@@ -1,4 +1,4 @@
-﻿module Integrations.Azure.Storage.Blobs.Startup
+﻿module Integrations.Azure.Storage.Blob.Startup
 
 #nowarn "20"
 
@@ -9,7 +9,7 @@ open Microsoft.Extensions.Logging
 open otsom.fs.Extensions.DependencyInjection
 open Domain.Workflows
 
-let addAzureStorageIntegration (services:IServiceCollection) =
+let addAzureStorageBlobIntegration (services:IServiceCollection) =
   services
     .BuildSingleton<BlobServiceClient, StorageSettings>(fun cfg -> BlobServiceClient(cfg.ConnectionString))
 
