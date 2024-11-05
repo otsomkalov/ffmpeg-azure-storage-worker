@@ -3,6 +3,7 @@ namespace Worker
 open Azure.Storage.Queues
 open Infrastructure
 open Infrastructure.Settings
+open Integrations.Azure.Storage.Blobs
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
@@ -32,7 +33,9 @@ module Program =
       .BuildSingleton<AppSettings, IConfiguration>(fun cfg -> cfg.Get<AppSettings>())
       .BuildSingleton<FFMpegSettings, IConfiguration>(fun cfg -> cfg.GetSection(FFMpegSettings.SectionName).Get<FFMpegSettings>())
 
-    services |> Startup.addIntegrationsCore ctx.Configuration
+    services
+    |> Startup.addIntegrationsCore ctx.Configuration
+    |> Startup.addAzureStorageIntegration
 
     services.AddHostedService<Worker.Worker>() |> ignore
 

@@ -1,17 +1,18 @@
-﻿namespace Infrastructure
+namespace Integrations.Azure.Storage.Blobs
 
 open System.IO
 open Azure.Storage.Blobs
-open FSharp
-open Microsoft.Extensions.Logging
-open otsom.fs.Extensions
 open Domain.Workflows
+open FSharp
+open Infrastructure.Settings
+open Microsoft.Extensions.Logging
+open otsom.fs.Extensions.Operators
 open Infrastructure.Core
 
 module RemoteStorage =
   let downloadFile
     (client: BlobServiceClient)
-    (settings: Settings.StorageSettings)
+    (settings: StorageSettings)
     (loggerFactory: ILoggerFactory)
     : RemoteStorage.DownloadFile =
     let logger = loggerFactory.CreateLogger(nameof RemoteStorage.DownloadFile)
@@ -24,7 +25,7 @@ module RemoteStorage =
         let downloadedFileExtension = Path.GetExtension inputFileName
         let downloadedFile = File.create downloadedFileExtension
 
-        do! blobClient.DownloadToAsync(downloadedFile.Path) |> Task.map ignore
+        do! blobClient.DownloadToAsync(downloadedFile.Path) &|> ignore
 
         Logf.logfi
           logger
@@ -37,7 +38,7 @@ module RemoteStorage =
 
   let uploadFile
     (client: BlobServiceClient)
-    (settings: Settings.StorageSettings)
+    (settings: StorageSettings)
     (loggerFactory: ILoggerFactory)
     : RemoteStorage.UploadFile =
     let logger = loggerFactory.CreateLogger(nameof RemoteStorage.UploadFile)
@@ -47,14 +48,14 @@ module RemoteStorage =
       task {
         let outputBlobClient = outputContainerClient.GetBlobClient(file.FullName)
 
-        do! outputBlobClient.UploadAsync(file.Path, true) |> Task.map ignore
+        do! outputBlobClient.UploadAsync(file.Path, true) &|> ignore
 
         Logf.logfi logger "Converted file %s{ConvertedFileName} uploaded" file.FullName
       }
 
   let deleteFile
     (client: BlobServiceClient)
-    (settings: Settings.StorageSettings)
+    (settings: StorageSettings)
     (loggerFactory: ILoggerFactory)
     : RemoteStorage.DeleteFile =
     let logger = loggerFactory.CreateLogger(nameof RemoteStorage.DeleteFile)
@@ -64,7 +65,7 @@ module RemoteStorage =
       task {
         let inputBlobContainer = inputContainerClient.GetBlobClient(name)
 
-        do! inputBlobContainer.DeleteIfExistsAsync() |> Task.map ignore
+        do! inputBlobContainer.DeleteIfExistsAsync() &|> ignore
 
         Logf.logfi logger "Remote input file %s{RemoteInputFileName} deleted" name
       }
